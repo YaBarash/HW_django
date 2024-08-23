@@ -9,7 +9,7 @@
                 <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
             </div>
             <div class="card-body">
-                <img class="card-img-top" src="{{ product.image | media_filter }}">
+                <img width="500" height="500" class="img-fluid img-thumbnail" src="{{ product.image | media_filter }}">
                 <h1 class="card-title pricing-card-title">{{ product.price }} руб.</h1>
                 <ul class="list-unstyled mt-3 mb-4 text-start m-3">
                     <li>- {{ product.description | slice:100 }}</li>
