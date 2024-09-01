@@ -8,5 +8,5 @@ register = template.Library()
 @register.filter()
 def media_filter(path):
     if path:
-        return f"/media/{path}"  # была ошибка, нужно прописывать путь со слэшем впереди
+        return f"/media/{path}"
     return f"#{path}"
