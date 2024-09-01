@@ -55,7 +55,7 @@ class Product(models.Model):
         null=True,
         related_name="products",
     )
-    price = models.PositiveIntegerField(default=0,)
+    price = models.PositiveIntegerField(default=0, )
     created_at = models.DateTimeField(
         auto_now_add=True,
         editable=False,
@@ -77,3 +77,40 @@ class Product(models.Model):
     # строковое представление объекта
     def __str__(self):
         return f"{self.name} {self.category} {self.created_at}"
+
+
+class Blog(models.Model):
+    # заголовок, slug, содержимое, превью, дата создания, признак публикации, количество просмотров
+    # создаем поля и прописываем их параметры
+    title = models.CharField(
+        max_length=100,
+        verbose_name="заголовок",
+        help_text="введите название заголовка",
+    ),
+    slug = models.CharField(
+        max_length=100,
+        verbose_name="слаг",
+        help_text="введите слаг",
+    ),
+    content = models.TextField(
+        max_length=100, verbose_name="содержимое", help_text="Введите содержимое"
+    ),
+    preview = models.ImageField(
+        upload_to="catalog/image",
+        blank=True,
+        null=True,
+        verbose_name="изображение",
+        help_text="загрузите изображение"
+    ),
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        editable=False,
+        verbose_name="дата создания",
+        help_text="Укажите дату создания"
+    ),
+    published = models.BooleanField(
+        default=False,
+        verbose_name="публикация",
+        help_text="поставьте галочку если статья опубликована"
+    ),
+    views = models.IntegerField(default=0)
