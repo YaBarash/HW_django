@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.timezone import now
 
 
 # Create your models here.
@@ -79,38 +78,3 @@ class Product(models.Model):
         return f"{self.name} {self.category} {self.created_at}"
 
 
-class Blog(models.Model):
-    # заголовок, slug, содержимое, превью, дата создания, признак публикации, количество просмотров
-    # создаем поля и прописываем их параметры
-    title = models.CharField(
-        max_length=100,
-        verbose_name="заголовок",
-        help_text="введите название заголовка",
-    ),
-    slug = models.CharField(
-        max_length=100,
-        verbose_name="слаг",
-        help_text="введите слаг",
-    ),
-    content = models.TextField(
-        max_length=100, verbose_name="содержимое", help_text="Введите содержимое"
-    ),
-    preview = models.ImageField(
-        upload_to="catalog/image",
-        blank=True,
-        null=True,
-        verbose_name="изображение",
-        help_text="загрузите изображение"
-    ),
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        editable=False,
-        verbose_name="дата создания",
-        help_text="Укажите дату создания"
-    ),
-    published = models.BooleanField(
-        default=False,
-        verbose_name="публикация",
-        help_text="поставьте галочку если статья опубликована"
-    ),
-    views = models.IntegerField(default=0)
