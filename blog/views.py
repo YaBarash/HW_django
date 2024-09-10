@@ -27,10 +27,16 @@ class BlogDetailView(DetailView):
     model = Blog
     slug_url_kwarg = 'the_slug_blog'
 
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        self.object.views += 1
+        self.object.save()
+        return self.object
+
 
 class BlogUpdateView(UpdateView):
     model = Blog
-    fields = ['title', 'content', 'preview', 'published']
+    fields = ['title', 'content', 'preview', 'published',]
     success_url = reverse_lazy('blog:blog_list')
     slug_url_kwarg = 'the_slug_blog'
 
