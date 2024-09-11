@@ -9,7 +9,7 @@
                     <h4 class="my-0 font-weight-normal">{{ object.title }} </h4>
                 </div>
                 <div class="card-body">
-                    <img class="card-img-top" src="{{ catalog.image | media_filter }}">
+                    <img class="card-img-top" src="{{ object.preview | media_filter }}">
                     <p class="card-text"> Ссылка: {{ object.slug }}</p>
                     <p class="card-text">Содержимое: {{ object.content }}</p>
                     <p class="card-text">Дата создания: {{ object.created_at }}</p>
