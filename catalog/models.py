@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.timezone import now
 
 
 # Create your models here.
@@ -55,7 +54,7 @@ class Product(models.Model):
         null=True,
         related_name="products",
     )
-    price = models.PositiveIntegerField(default=0,)
+    price = models.PositiveIntegerField(default=0, )
     created_at = models.DateTimeField(
         auto_now_add=True,
         editable=False,
@@ -77,3 +76,5 @@ class Product(models.Model):
     # строковое представление объекта
     def __str__(self):
         return f"{self.name} {self.category} {self.created_at}"
+
+
