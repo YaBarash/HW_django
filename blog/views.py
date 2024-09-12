@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
@@ -21,6 +22,11 @@ class BlogCreateView(CreateView):
 class BlogListView(ListView):
     model = Blog
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        object_publ = Blog.objects.filter(published=True)
+        context['object_publ'] = object_publ
+        return context
 
 class BlogDetailView(DetailView):
     model = Blog
@@ -34,10 +40,13 @@ class BlogDetailView(DetailView):
 
 class BlogUpdateView(UpdateView):
     model = Blog
-    fields = ['title', 'content', 'preview', 'published',]
-    success_url = reverse_lazy('blog:blog_list')
+    fields = ['title', 'content', 'preview', 'published', ]
+
+    def get_success_url(self):
+        return reverse_lazy('blog:blog_view', kwargs={'pk': self.object.id})
 
 
 class BlogDeleteView(DeleteView):
     model = Blog
     success_url = reverse_lazy('blog:blog_list')
+
