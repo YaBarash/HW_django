@@ -46,5 +46,5 @@ class Blog(models.Model):
 
     # строковое представление объекта
     def __str__(self):
-        return f"{self.title} {self.published} {self.created_at}"
+        return f"{self.title}"
 
