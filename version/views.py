@@ -7,20 +7,22 @@ from version.forms import Version, VersionForm
 class VersionCreateView(CreateView):
     model = Version
     form_class = VersionForm
+    success_url = reverse_lazy('catalog:product_list')
 
 
 class VersionListView(ListView):
     model = Version
 
 
-# class VersionDetailView(DetailView):
-#     model = Version
-#
-#
-# class VersionUpdateView(UpdateView):
-#     model = Version
-#     fields = "__all__"
-#
-#
-# class VersionDeleteView(DeleteView):
-#     model = Version
+class VersionDetailView(DetailView):
+    model = Version
+
+
+class VersionUpdateView(UpdateView):
+    model = Version
+    fields = "__all__"
+
+
+
+class VersionDeleteView(DeleteView):
+    model = Version
