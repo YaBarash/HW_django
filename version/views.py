@@ -12,10 +12,6 @@ class VersionCreateView(CreateView):
 class VersionListView(ListView):
     model = Version
 
-    def get_context_data(*args, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['is_active'] = "Version active"
-        return context
 
 # class VersionDetailView(DetailView):
 #     model = Version
