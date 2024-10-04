@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 
 # Create your models here.
 
@@ -66,6 +68,8 @@ class Product(models.Model):
         verbose_name="дата последнего изменения",
         help_text="Укажите дату изменения записи в БД",
     )
+    user = models.ForeignKey(User, verbose_name="Пользователь", help_text="Укажите пользователя", blank=True, null=True,
+                             on_delete=models.SET_NULL)
 
     # Класс мета
     class Meta:
@@ -76,5 +80,3 @@ class Product(models.Model):
     # строковое представление объекта
     def __str__(self):
         return f"{self.name} {self.category} {self.created_at}"
-
-

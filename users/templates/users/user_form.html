@@ -1,0 +1,22 @@
+{% extends 'catalog/home.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row text">
+        <div class="col-6">
+            <div class="row">
+                <div class="card-deck">
+                    <div class="card-align-self-end">
+                        <form class="text-body-color mb-3 form-control" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button type="submit" class="btn btn-success">
+                                Зарегистрироваться
+                            </button>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
