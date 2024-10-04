@@ -31,11 +31,24 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         model = Product
         fields = "__all__"
 
-    def clean_name(self):
+    # def clean_name(self):
+    #     prohibited_names = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
+    #                         'радар']
+    #     cleaned_data = self.cleaned_data.get('name')
+    #     for i in prohibited_names:
+    #         if i in cleaned_data.lower():
+    #             raise forms.ValidationError('Ошибка! Недопустимое название товара!')
+    #     return cleaned_data
+
+    def clean(self):
         prohibited_names = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
                             'радар']
-        cleaned_data = self.cleaned_data.get('name')
+        cleaned_data = super().clean()
+        cleaned_name = cleaned_data.get('name')
+        cleaned_description = cleaned_data.get('description')
         for i in prohibited_names:
-            if i in cleaned_data.lower():
+            if i in cleaned_name.lower():
                 raise forms.ValidationError('Ошибка! Недопустимое название товара!')
-        return cleaned_data
+            elif i in cleaned_description.lower():
+                raise forms.ValidationError('Ошибка! Недопустимое описание товара!')
+

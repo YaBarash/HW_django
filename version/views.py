@@ -7,7 +7,6 @@ from version.forms import Version, VersionForm
 class VersionCreateView(CreateView):
     model = Version
     form_class = VersionForm
-    success_url = reverse_lazy('catalog:product_list')
 
 
 class VersionListView(ListView):
