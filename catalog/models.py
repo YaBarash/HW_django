@@ -70,12 +70,19 @@ class Product(models.Model):
     )
     user = models.ForeignKey(User, verbose_name="Пользователь", help_text="Укажите пользователя", blank=True, null=True,
                              on_delete=models.SET_NULL)
+    publication = models.BooleanField(default=False, verbose_name="признак публикации продукта", help_text="продукт опубликован")
 
     # Класс мета
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         ordering = ["category", "name"]
+
+        permissions = [
+            ('set_published', 'Can publish products'),
+            ('change_description', 'Can change description'),
+            ('change_category', 'Can change category'),
+        ]
 
     # строковое представление объекта
     def __str__(self):
