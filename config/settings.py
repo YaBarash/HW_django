@@ -39,7 +39,9 @@ INSTALLED_APPS = [
 
     "catalog",
     "blog",
-    "version"
+    "version",
+    "users",
+    "phonenumber_field",
 ]
 
 MIDDLEWARE = [
@@ -128,3 +130,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "users.User"
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
+EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = 'alina_nemo@mail.ru'
+EMAIL_HOST_PASSWORD = 'H0S5KuA5wevvwwcZJcyW'
+
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
