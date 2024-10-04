@@ -1,6 +1,5 @@
 from django import forms
 
-
 from catalog.models import Product
 
 
@@ -47,8 +46,9 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         cleaned_name = cleaned_data.get('name')
         cleaned_description = cleaned_data.get('description')
         for i in prohibited_names:
-            if i in cleaned_name.lower():
-                raise forms.ValidationError('Ошибка! Недопустимое название товара!')
-            elif i in cleaned_description.lower():
+            if i == cleaned_name.lower() and i == cleaned_description.lower():
+                raise forms.ValidationError('Ошибка! Недопустимое название и описание товара!')
+            elif i == cleaned_description.lower():
                 raise forms.ValidationError('Ошибка! Недопустимое описание товара!')
-
+            elif i == cleaned_name.lower():
+                raise forms.ValidationError('Ошибка! Недопустимое название товара!')
