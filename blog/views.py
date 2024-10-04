@@ -1,15 +1,19 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 
+from blog.forms import BlogModeratorForm, BlogForm
 from blog.models import Blog
 
 
-class BlogCreateView(CreateView):
+class BlogCreateView(PermissionRequiredMixin, CreateView):
     model = Blog
-    fields = ['title', 'content', 'preview', 'published']
+    form_class = BlogForm
     success_url = reverse_lazy('blog:blog_list')
+    permission_required = 'blog.add_blog'
 
     def form_valid(self, form):
         if form.is_valid():
@@ -28,6 +32,7 @@ class BlogListView(ListView):
         context['object_publ'] = object_publ
         return context
 
+
 class BlogDetailView(DetailView):
     model = Blog
 
@@ -38,15 +43,24 @@ class BlogDetailView(DetailView):
         return self.object
 
 
-class BlogUpdateView(UpdateView):
+class BlogUpdateView(PermissionRequiredMixin, UpdateView):
     model = Blog
     fields = ['title', 'content', 'preview', 'published', ]
+    permission_required = 'blog.change_blog'
 
     def get_success_url(self):
         return reverse_lazy('blog:blog_view', kwargs={'pk': self.object.id})
 
+    def get_form_class(self):
+        user = self.request.user
+        if user == self.object.user:
+            return BlogForm
+        if user.has_perm('blog.add_blog') and user.has_perm("blog.change_blog") and user.has_perm("blog.delete_blog"):
+            return BlogModeratorForm
+        raise PermissionDenied
 
-class BlogDeleteView(DeleteView):
+
+class BlogDeleteView(PermissionRequiredMixin, DeleteView):
     model = Blog
     success_url = reverse_lazy('blog:blog_list')
-
+    permission_required = 'blog.delete_blog'

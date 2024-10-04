@@ -1,5 +1,8 @@
 from django.db import models
 
+from users.models import User
+
+
 class Blog(models.Model):
     # заголовок, slug, содержимое, превью, дата создания, признак публикации, количество просмотров
     # создаем поля и прописываем их параметры
@@ -39,10 +42,18 @@ class Blog(models.Model):
         verbose_name="Количество просмотров",
         help_text="Укажите количество просмотров"
     )
+    user = models.ForeignKey(User, verbose_name="Пользователь", help_text="Укажите пользователя", blank=True, null=True,
+                             on_delete=models.SET_NULL)
 
     class Meta:
         verbose_name = "Запись в блоге"
         verbose_name_plural = "Записи в блоге"
+
+        # permissions = [
+        #     ('set_published', 'Can publish products'),
+        #     ('change_description', 'Can change description'),
+        #     ('change_category', 'Can change category'),
+        # ]
 
     # строковое представление объекта
     def __str__(self):

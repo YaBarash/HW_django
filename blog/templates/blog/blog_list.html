@@ -3,7 +3,9 @@
 {% block content %}
 <div class="container">
     <div class="row text-center">
+        {% if perms.blog.add_blog %}
         <a class="btn btn-outline-primary mx-auto" href="{% url 'blog:blog_create' %}">Создать блог</a>
+        {% endif %}
         <div class="pb-4"></div>
         {% for object in object_publ %}
             <div class="col-4">
@@ -19,10 +21,14 @@
                             <div class="btn-group">
                                 <a class="btn btn-sm btn-outline-primary" href="{% url 'blog:blog_view' object.id %}"
                                    role="button">Подробнее</a>
+                                {% if perms.blog.change_blog %}
                                 <a class="btn btn-sm btn-outline-success" href="{% url 'blog:blog_update' object.id %}"
                                    role="button">Изменить</a>
+                                {% endif %}
+                                {% if perms.blog.delete_blog %}
                                 <a class="btn btn-sm btn-outline-danger" href="{% url 'blog:blog_delete' object.id %}"
                                    role="button">Удалить</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

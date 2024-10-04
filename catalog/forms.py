@@ -30,15 +30,6 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         model = Product
         fields = "__all__"
 
-    # def clean_name(self):
-    #     prohibited_names = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
-    #                         'радар']
-    #     cleaned_data = self.cleaned_data.get('name')
-    #     for i in prohibited_names:
-    #         if i in cleaned_data.lower():
-    #             raise forms.ValidationError('Ошибка! Недопустимое название товара!')
-    #     return cleaned_data
-
     def clean(self):
         prohibited_names = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция',
                             'радар']
@@ -52,3 +43,9 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
                 raise forms.ValidationError('Ошибка! Недопустимое описание товара!')
             elif i == cleaned_name.lower():
                 raise forms.ValidationError('Ошибка! Недопустимое название товара!')
+
+
+class ProductModeratorForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ("description", "category", "publication")
