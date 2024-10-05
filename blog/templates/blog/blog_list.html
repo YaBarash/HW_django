@@ -7,7 +7,7 @@
         <a class="btn btn-outline-primary mx-auto" href="{% url 'blog:blog_create' %}">Создать блог</a>
         {% endif %}
         <div class="pb-4"></div>
-        {% for object in object_publ %}
+        {% for object in blogs %}
             <div class="col-4">
                 <div class="card mb-4 box-shadow">
                     <div class="card-header">
