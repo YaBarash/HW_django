@@ -6,7 +6,8 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, TemplateView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm, ProductModeratorForm
-from catalog.models import Product
+from catalog.models import Product, Category
+from catalog.services import get_categories_from_cache
 from version.forms import VersionForm
 from version.models import Version
 
@@ -98,3 +99,10 @@ class ContactsTemplateView(TemplateView):
             message = request.POST.get('message')
             print(f'{name} ({phone}): {message}')
         return render(request, 'catalog/contacts.html')
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = "catalog/categories_list.html"
+
+    def get_queryset(self):
+        return get_categories_from_cache()
