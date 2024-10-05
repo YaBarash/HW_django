@@ -25,12 +25,19 @@ class BlogCreateView(PermissionRequiredMixin, CreateView):
 
 class BlogListView(ListView):
     model = Blog
+    context_object_name = 'blogs'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        object_publ = Blog.objects.filter(published=True)
-        context['object_publ'] = object_publ
-        return context
+    # def get_context_data(self, *, object_list=None, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     object_publ = Blog.objects.filter(published=True)
+    #     context['object_publ'] = object_publ
+    #     return context
+
+    def get_queryset(self):
+        if self.request.user.is_staff:  # если контент-менеджер
+            return Blog.objects.all()  # выводим все блоги
+        else:
+            return Blog.objects.filter(published=True)  # только опубликованные
 
 
 class BlogDetailView(DetailView):
