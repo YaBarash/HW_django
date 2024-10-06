@@ -38,9 +38,9 @@ class MailingMessage(models.Model):
 
 
 class EmailSettings(models.Model):
-    PERIOD_DAILY = 'daily'
-    PERIOD_WEEKLY = 'weekly'
-    PERIOD_MONTHLY = 'monthly'
+    PERIOD_DAILY = 'Ежедневная'
+    PERIOD_WEEKLY = 'Раз в неделю'
+    PERIOD_MONTHLY = 'Раз в месяц'
 
     PERIODS = (
         (PERIOD_DAILY, 'Ежедневная'),
@@ -48,9 +48,9 @@ class EmailSettings(models.Model):
         (PERIOD_MONTHLY, 'Раз в месяц'),
     )
 
-    STATUS_CREATED = 'created'
-    STATUS_STARTED = 'started'
-    STATUS_DONE = 'done'
+    STATUS_CREATED = 'Создана'
+    STATUS_STARTED = 'Запущена'
+    STATUS_DONE = 'Завершена'
 
     STATUSES = (
         (STATUS_CREATED, 'Создана'),

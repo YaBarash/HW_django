@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, DetailView, DeleteView, UpdateView
+from django.views.generic import CreateView, ListView, DetailView, DeleteView, UpdateView, TemplateView
 
-from clients.forms import ClientForm
+from clients.forms import ClientForm, EmailSettingsForm, MailingMessageForm
 from clients.models import Client, EmailSettings, MailLog, MailingMessage
 
+class HomePageView(TemplateView):
+    template_name = 'clients/home_page.html'
 
 class ClientsCreateView(CreateView):
     model = Client
@@ -36,3 +38,39 @@ class ClientsUpdateView(UpdateView):
 class ClientsDeleteView(DeleteView):
     model = Client
     success_url = reverse_lazy('clients:client_list')
+
+
+class EmailSettingsCreateView(CreateView):
+    model = EmailSettings
+    form_class = EmailSettingsForm
+    success_url = reverse_lazy('clients:emailsettings_list')
+
+class EmailSettingsListView(ListView):
+    model = EmailSettings
+
+class EmailSettingsDeleteView(DeleteView):
+    model = EmailSettings
+    success_url = reverse_lazy('clients:emailsettings_list')
+
+class EmailSettingsUpdateView(UpdateView):
+    model = EmailSettings
+    form_class = EmailSettingsForm
+    success_url = reverse_lazy('clients:emailsettings_list')
+
+class MailingMessageCreateView(CreateView):
+    model = MailingMessage
+    form_class = MailingMessageForm
+    success_url = reverse_lazy('clients:mailingmessage_list')
+
+class MailingMessageUpdateView(UpdateView):
+    model = MailingMessage
+    form_class = MailingMessageForm
+    success_url = reverse_lazy('clients:mailingmessage_list')
+
+class MailingMessageListView(ListView):
+    model = MailingMessage
+    success_url = reverse_lazy('clients:mailingmessage_list')
+
+class MailingMessageDeleteView(DeleteView):
+    model = MailingMessage
+    success_url = reverse_lazy('clients:mailingmessage_list')

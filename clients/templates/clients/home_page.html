@@ -1,0 +1,15 @@
+{% extends 'clients/base.html' %}
+
+{% block content %}
+<div style="margin-top: 50px">
+    <a class="btn btn-outline-primary mx-auto mb-3" href="{% url 'clients:client_create' %}">Добавить клиента</a>
+    <a class="btn btn-outline-primary mx-auto mb-3" href="{% url 'clients:emailsettings_create' %}">Настроить рассылку</a>
+</div>
+
+<div class="card-align-self-end mt-3">
+    <div class="card-body">
+        <a href="{% url 'catalog:product_list' %}" type="button"
+           class="btn btn-lg btn-block btn-danger">Назад</a>
+    </div>
+</div>
+{% endblock %}
