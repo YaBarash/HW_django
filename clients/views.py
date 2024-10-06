@@ -74,3 +74,5 @@ class MailingMessageListView(ListView):
 class MailingMessageDeleteView(DeleteView):
     model = MailingMessage
     success_url = reverse_lazy('clients:mailingmessage_list')
+
+
