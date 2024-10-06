@@ -4,7 +4,7 @@
 
 {% for object in object_list %}
 <div class="col-12">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
         <div class="col">
             <div class="card bg-transparent h-100">
                 <div class="card-header">
@@ -32,11 +32,12 @@
         </div>
     </div>
 </div>
+{% endfor %}
 <div class="card-align-self-end mt-3">
     <div class="card-body">
-        <a href="{% url 'catalog:product_list' %}" type="button"
+        <a href="{% url 'clients:main_page' %}" type="button"
            class="btn btn-lg btn-block btn-danger">Назад</a>
     </div>
 </div>
-{% endfor %}
+
 {% endblock %}
