@@ -1,0 +1,54 @@
+{% extends 'clients/base.html' %}
+
+{% block content %}
+
+{% for object in object_list %}
+<div class="col-12">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
+        <div class="col">
+            <div class="card bg-transparent h-100">
+                <div class="card-header">
+                    <h5 class="card-title">{{ object.start_time }}</h5>
+                    <h5 class="card-title">{{ object.stop_time }}</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ object.status }}</p>
+                    <p class="card-text">{{ object.period }}</p>
+                    <p class="card-text">{{ object.message }}</p>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col">
+                            <div role="button" aria-label="Basic outlined example">
+                                {% if perms.clients.change_emailsettings or object.owner == user %}
+                                <a href="{% url 'clients:emailsettings_update' object.pk %}"
+                                   class="btn btn-outline-success">Изменить</a>
+                                {% endif %}
+                                {% if perms.clients.delete_emailsettings or object.owner == user %}
+                                <a href="{% url 'clients:emailsettings_delete' object.pk %}"
+                                   class="btn btn-outline-danger">Удалить</a>
+                                {% endif %}
+                                {% if object.status == 'Создана' or object.status == 'Запущена' %}
+                                <a href="{% url 'clients:emailsettings_edit' object.pk %}"
+                                   class="btn btn-outline-primary">Остановить рассылку</a>
+                                {% else %}
+                                <a href="{% url 'clients:emailsettings_edit' object.pk %}"
+                                   class="btn btn-outline-primary">Активировать</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+<div class="card-align-self-end mt-3">
+    <div class="card-body">
+        <a href="{% url 'clients:main_page' %}" type="button"
+           class="btn btn-lg btn-block btn-danger">Назад</a>
+    </div>
+</div>
+
+{% endblock %}
