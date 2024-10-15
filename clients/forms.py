@@ -7,7 +7,7 @@ from clients.models import Client, EmailSettings, MailingMessage
 class ClientForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Client
-        fields = "__all__"
+        exclude = ('owner',)
 
 class EmailSettingsForm(StyleFormMixin, forms.ModelForm):
     class Meta:

@@ -1,7 +1,5 @@
 {% extends 'clients/base.html' %}
-
 {% block content %}
-
 {% for object in object_list %}
 <div class="col-12">
     <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
@@ -18,10 +16,14 @@
                     <div class="row">
                         <div class="col">
                             <div role="button" aria-label="Basic outlined example">
-                                <a href="{% url 'clients:client_update' object.pk %}"
-                                   class="btn btn-outline-success">Изменить</a>
-                                <a href="{% url 'clients:client_delete' object.pk %}"
-                                   class="btn btn-outline-danger">Удалить</a>
+                                {% if perms.clients.change_client or object.owner == user %}
+                                    <a href="{% url 'clients:client_update' object.pk %}"
+                                       class="btn btn-outline-success">Изменить</a>
+                                {% endif %}
+                                {% if perms.clients.delete_client or object.owner == user %}
+                                    <a href="{% url 'clients:client_delete' object.pk %}"
+                                       class="btn btn-outline-danger">Удалить</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

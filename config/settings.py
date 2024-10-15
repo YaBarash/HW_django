@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'users',
     'phonenumber_field',
     'clients',
+    'django_crontab',
+    'django_apscheduler',
 ]
 
 MIDDLEWARE = [
@@ -158,3 +160,10 @@ if CACHE_ENABLED:
             'LOCATION': os.getenv('LOCATION'),
         }
     }
+
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+APSCHEDULER_RUN_NOW_TIMEOUT = 25
+
+# CRONJOBS = [
+#     ('* 15 * * *', 'myapp.cron.send_email')
+# ]

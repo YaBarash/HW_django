@@ -14,6 +14,7 @@ class Client(models.Model):
     comment = models.TextField(verbose_name='Комментарий', help_text='Укажите комментарий', **NULLABLE)
 
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, **NULLABLE, verbose_name='Пользователь')
+    is_blocked = models.BooleanField(default=False, verbose_name='Блокировка клиента')
 
     def __str__(self):
         return f'{self.first_name} {self.last_name} - {self.email}'
@@ -28,6 +29,8 @@ class MailingMessage(models.Model):
     letter_body = models.TextField(verbose_name='Тело письма')
     owner = models.ForeignKey(User, on_delete=models.CASCADE, **NULLABLE,
                               verbose_name='Пользователь')
+    client = models.ManyToManyField(Client, verbose_name='Клиент')
+
 
     def __str__(self):
         return f'Тема: {self.letter_subject}'
@@ -69,6 +72,7 @@ class EmailSettings(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE, **NULLABLE,
                               verbose_name='Пользователь')
+    is_on = models.BooleanField(default=True, verbose_name='Активация рассылки')
 
     def __str__(self):
         return f'{self.start_time} / {self.period}'
@@ -83,8 +87,8 @@ class EmailSettings(models.Model):
         # ]
 
 class MailLog(models.Model):
-    STATUS_OK = 'ok'
-    STATUS_FAILED = 'failed'
+    STATUS_OK = 'Успешно'
+    STATUS_FAILED = 'Ошибка'
 
     STATUSES = (
         (STATUS_OK, 'Успешно'),

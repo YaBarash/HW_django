@@ -34,11 +34,13 @@ class UserCreateView(CreateView):
         )
         return super().form_valid(form)
 
+
 def email_verification(request, token):
     user = get_object_or_404(User, token=token)
     user.is_active = True
     user.save()
     return redirect(reverse('users:login'))
+
 
 def reset_password(request):
     if request.method == 'POST':
