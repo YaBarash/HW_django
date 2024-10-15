@@ -10,7 +10,6 @@
                         <form class="text-body-color mb-3 form-control" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             {{ form.as_p }}
-                            {% if perms.clients.change_emailsettings %}
                             <button type="submit" class="btn btn-success">
                                 {% if object %}
                                     Сохранить
@@ -20,7 +19,6 @@
                             </button>
                             <a class="btn btn-primary" href="{% url 'clients:emailsettings_list' %}"
                                role="button">Отмена</a>
-                            {% endif %}
                         </form>
                     </div>
                 </div>

@@ -21,6 +21,7 @@ urlpatterns = [
     path('settings/list/', EmailSettingsListView.as_view(), name='emailsettings_list'),
     path('settings/update/<int:pk>/', EmailSettingsUpdateView.as_view(), name='emailsettings_update'),
     path('settings/delete/<int:pk>/', EmailSettingsDeleteView.as_view(), name='emailsettings_delete'),
+    path('settings/edit/<int:pk>/', EmailSettingsUpdateView.edit_activate, name='emailsettings_edit'),
 
     path('message/create/', MailingMessageCreateView.as_view(), name='mailingmessage_create'),
     path('message/list/', MailingMessageListView.as_view(), name='mailingmessage_list'),

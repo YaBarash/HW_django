@@ -16,12 +16,14 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col">
+                            {% if perms.clients.change_mailingmessage or object.owner == user %}
                             <div role="button" aria-label="Basic outlined example">
                                 <a href="{% url 'clients:mailingmessage_update' object.pk %}"
                                    class="btn btn-outline-success">Изменить</a>
                                 <a href="{% url 'clients:mailingmessage_delete' object.pk %}"
                                    class="btn btn-outline-danger">Удалить</a>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
