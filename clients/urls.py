@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
 from clients.apps import ClientsConfig
 from clients.views import ClientsCreateView, ClientsDetailView, ClientsListView, ClientsUpdateView, ClientsDeleteView, \
@@ -13,12 +14,12 @@ urlpatterns = [
 
     path('clients/create/', ClientsCreateView.as_view(), name='client_create'),
     path('clients/detail/<int:pk>/', ClientsDetailView.as_view(), name='client_detail'),
-    path('clients/list/', ClientsListView.as_view(), name='client_list'),
+    path('clients/list/', cache_page(60)(ClientsListView.as_view()), name='client_list'),
     path('clients/update/<int:pk>/', ClientsUpdateView.as_view(), name='client_update'),
     path('clients/delete/<int:pk>/', ClientsDeleteView.as_view(), name='client_delete'),
 
     path('settings/create/', EmailSettingsCreateView.as_view(), name='emailsettings_create'),
-    path('settings/list/', EmailSettingsListView.as_view(), name='emailsettings_list'),
+    path('settings/list/', cache_page(60)(EmailSettingsListView.as_view()), name='emailsettings_list'),
     path('settings/update/<int:pk>/', EmailSettingsUpdateView.as_view(), name='emailsettings_update'),
     path('settings/delete/<int:pk>/', EmailSettingsDeleteView.as_view(), name='emailsettings_delete'),
     path('settings/edit/<int:pk>/', EmailSettingsUpdateView.edit_activate, name='emailsettings_edit'),
